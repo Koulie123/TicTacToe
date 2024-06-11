@@ -1,22 +1,84 @@
 
 function gameBoard() {
+    let gameGrid = [];
+    const boardSpaces = document.querySelectorAll(".board-space");
+    const addButtonsToBoard = function() {
+        boardSpaces.forEach((element) => {
+            element.addEventListener("click", () => {
+                if(gameGrid[element.id].value == "") {
+                    gameGrid[element.id].value = getTurnType();
+                    if (checkForWin(getTurnType())) console.log("Someone has won");
+                    increaseTurn();
+                    updateBoardState();
+                    updateCurrentPlayer();
+                }
+            })
+        })
+    }
+
     const createGameBoard = () => {
-        let gameGrid = [];
+        gameGrid = [];
         for(let i = 0; i < 3; i++){
             for(let j = 0; j<3; j++) {
-                gameGrid.push({});
+                gameGrid.push({value: ""});
             }
         }
         return gameGrid;
     }
+    const getGameBoard = () => gameGrid;
     let turnNumber = 1;
     const increaseTurn = () => turnNumber++;
     const getTurnNumber = () => turnNumber; 
-    const getTurnType = () => {
-        if (turnNumber % 2 == 0) return "X";
+    const getTurnType = function() {
+        if (turnNumber % 2 == 1) return "X";
         else return "O";
     }
-return { createGameBoard, increaseTurn, getTurnNumber, getTurnType};
+    const checkForWin = function(x) {
+        if (gameGrid[0].value == x && gameGrid[1].value == x && gameGrid[2].value == x) return true;
+        if (gameGrid[3].value == x && gameGrid[4].value == x && gameGrid[5].value == x) return true;
+        if (gameGrid[6].value == x && gameGrid[7].value == x && gameGrid[8].value == x) return true;
+        if (gameGrid[0].value == x && gameGrid[3].value == x && gameGrid[6].value == x) return true;
+        if (gameGrid[1].value == x && gameGrid[4].value == x && gameGrid[7].value == x) return true;
+        if (gameGrid[2].value == x && gameGrid[5].value == x && gameGrid[8].value == x) return true;
+        if (gameGrid[0].value == x && gameGrid[4].value == x && gameGrid[8].value == x) return true;
+        if (gameGrid[2].value == x && gameGrid[4].value == x && gameGrid[6].value == x) return true;
+        return false;
+    }
+    // const checkForWin = function(x) {
+    //     if (gameGrid[0].value == gameGrid[1].value == gameGrid[2].value && (gameGrid[0].value != "")) {
+    //         console.log(getGameBoard());
+    //         return true;}
+    //     if (gameGrid[3].value == gameGrid[4].value == gameGrid[5].value && (gameGrid[3].value != "")) return true;
+    //     if (gameGrid[6].value == gameGrid[7].value == gameGrid[8].value && (gameGrid[6].value != "")) return true;
+    //     if (gameGrid[0].value == gameGrid[3].value == gameGrid[6].value && (gameGrid[0].value != "")) return true;
+    //     if (gameGrid[1].value == gameGrid[4].value == gameGrid[7].value && (gameGrid[1].value != "")) return true;
+    //     if (gameGrid[2].value == gameGrid[5].value == gameGrid[8].value && (gameGrid[2].value != "")) return true;
+    //     if (gameGrid[0].value == gameGrid[4].value == gameGrid[8].value && (gameGrid[0].value != "")) return true;
+    //     if (gameGrid[2].value == gameGrid[4].value == gameGrid[6].value && (gameGrid[2].value != "")) return true;
+    //     return false;
+    // }
+    const  updateBoardState = function (){
+        for(let i = 0; i < 9; i++){
+            let element = document.getElementById(i);
+            element.textContent = gameGrid[i].value;
+            // console.log("Board state value is " + gameGrid[i].value + "at point" + i);
+        }
+    }
+    const updateCurrentPlayer = function () {
+        const currentPlayerTurnDiv = document.getElementById("player-turn");
+        const turnType = getTurnType();
+        currentPlayerTurnDiv.textContent = ("It is currently " + turnType +"'s turn!!!");
+    }
+    
+    const runGame = function() {
+        let boardGameGrid = createGameBoard();
+        addButtonsToBoard();
+        // while(true){
+
+        // }
+    }
+
+return { createGameBoard, increaseTurn, getTurnNumber, getTurnType, checkForWin, runGame, getGameBoard};
 }
 
 
@@ -28,7 +90,10 @@ return { createGameBoard, increaseTurn, getTurnNumber, getTurnType};
 
 
 
-
+//Game loop
+//Player takes turn
+//Game board Updates
+// Checkes for Win
 
 
 
@@ -39,5 +104,8 @@ return { createGameBoard, increaseTurn, getTurnNumber, getTurnType};
 
 //Game loop starts here
 let gameBoardObject = gameBoard();
-console.log(gameBoardObject.createGameBoard());
-console.log("")
+gameBoardObject.runGame();
+// console.log(gameBoardObject.createGameBoard());
+// console.log("");
+// updateCurrentPlayer(gameBoardObject);
+// updateBoardState(gameBoardObject.getGameBoard())

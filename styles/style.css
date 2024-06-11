@@ -1,0 +1,25 @@
+.container {
+    height: 90%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 10%;
+}
+
+.game-board-container {
+    width: 20rem;
+    height: 20rem; 
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    border: 2px solid black;
+}
+.board-space {
+    border: 2px solid black;
+    font: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
