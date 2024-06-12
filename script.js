@@ -7,7 +7,7 @@ function gameBoard() {
     const playerWonDiv = document.querySelector("#player-has-won");
     const boardSpaces = document.querySelectorAll(".board-space");
     const scoreDiv = document.querySelector("#player-score");
-
+    const resetScoreBtn = document.querySelector("#score-reset");
     const addButtonsToBoard = function() {
         boardSpaces.forEach((element) => {
             element.addEventListener("click", () => {
@@ -30,6 +30,7 @@ function gameBoard() {
         })
         const resetButton = document.querySelector("#reset-button");
         resetButton.addEventListener("click", resetBoard);
+        resetScoreBtn.addEventListener("click", resetScore);
     }
     const updatePlayerHasWon = function (content) {
         playerWonDiv.textContent = content;
@@ -103,9 +104,11 @@ function gameBoard() {
         // }
     }
     const inscreaseScore = function (player) {
+        console.log("Current X score is " + Xscore);
         if (player == "X") Xscore++;
         if (player == "O") Oscore++;
         scoreDiv.textContent = "Score: X = " + Xscore + "  O = " + Oscore;
+        console.log("Score has been updated");
     }
     const resetBoard = function() {
         console.log("Resetting the board");
@@ -119,6 +122,12 @@ function gameBoard() {
         playerWonDiv.textContent = "";
         gameIsFinished = false;
 
+    }
+    const resetScore = function() {
+        Xscore = 0;
+        console.log(Xscore);
+        Oscore = 0;
+        scoreDiv.textContent = "Score: X = " + Xscore + "  O = " + Oscore;
     }
 
 return { createGameBoard, increaseTurn, getTurnNumber, getTurnType, checkForWin, runGame, getGameBoard, resetBoard};

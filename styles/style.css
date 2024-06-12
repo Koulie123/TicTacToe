@@ -40,7 +40,25 @@ html {
 }
 .reset button {
     background-color: #fca5a5;
+    padding: .5rem;
+    border: 0px;
+    border-radius: 1.1rem;
+    margin: .8rem;
 }
-.reset button:hover {
+.reset button:hover  {
     background-color: #fecaca;
+}
+
+#score-reset {
+    background-color: #fca5a5;
+    border: 0px;
+    border-radius: 1.1rem;
+    padding: 0.5rem;
+    margin: .8rem;
+
+
+}
+#score-reset:hover {
+    background-color: #fecaca;
+
 }
