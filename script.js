@@ -7,15 +7,22 @@ function gameBoard() {
             element.addEventListener("click", () => {
                 if(gameGrid[element.id].value == "") {
                     gameGrid[element.id].value = getTurnType();
-                    if (checkForWin(getTurnType())) console.log("Someone has won");
+                    if (checkForWin(getTurnType())) updatePlayerHasWon(getTurnType() +" has won!");
+                    if (checkForDraw()) updatePlayerHasWon("It's a draw!")
                     increaseTurn();
                     updateBoardState();
                     updateCurrentPlayer();
                 }
             })
         })
+        const resetButton = document.querySelector("#reset-button");
+        resetButton.addEventListener("click", resetBoard);
     }
-
+    const updatePlayerHasWon = function (content) {
+        let playerWonDiv = document.querySelector("#player-has-won");
+        playerWonDiv.textContent = content;
+        
+    }
     const createGameBoard = () => {
         gameGrid = [];
         for(let i = 0; i < 3; i++){
@@ -44,6 +51,12 @@ function gameBoard() {
         if (gameGrid[2].value == x && gameGrid[4].value == x && gameGrid[6].value == x) return true;
         return false;
     }
+    const checkForDraw = function() {
+        for(let i = 0; i < 9; i++) {
+            if(gameGrid[i].value == "") return false;
+        }
+        return true;
+    }
     // const checkForWin = function(x) {
     //     if (gameGrid[0].value == gameGrid[1].value == gameGrid[2].value && (gameGrid[0].value != "")) {
     //         console.log(getGameBoard());
@@ -67,7 +80,7 @@ function gameBoard() {
     const updateCurrentPlayer = function () {
         const currentPlayerTurnDiv = document.getElementById("player-turn");
         const turnType = getTurnType();
-        currentPlayerTurnDiv.textContent = ("It is currently " + turnType +"'s turn!!!");
+        currentPlayerTurnDiv.textContent = ("It is currently " + turnType +"'s turn!");
     }
     
     const runGame = function() {
@@ -77,8 +90,20 @@ function gameBoard() {
 
         // }
     }
+    const resetBoard = function() {
+        console.log("Resetting the board");
+        console.log(getGameBoard());
+        gameGrid = createGameBoard();
+        turnNumber = 1;
+        updateBoardState();
+        updateCurrentPlayer();
+        console.log("Resetting the board is done");
+        console.log(getGameBoard());
 
-return { createGameBoard, increaseTurn, getTurnNumber, getTurnType, checkForWin, runGame, getGameBoard};
+
+    }
+
+return { createGameBoard, increaseTurn, getTurnNumber, getTurnType, checkForWin, runGame, getGameBoard, resetBoard};
 }
 
 
@@ -109,3 +134,8 @@ gameBoardObject.runGame();
 // console.log("");
 // updateCurrentPlayer(gameBoardObject);
 // updateBoardState(gameBoardObject.getGameBoard())
+
+
+// Added functions to Buttons
+// const resetButton = document.querySelector("#reset-button");
+// resetButton.addEventListener("click", gameBoardObject.resetBoard());

@@ -1,3 +1,8 @@
+html {
+    background-color: #ecfeff;
+}
+
+
 .container {
     height: 90%;
     width: 100%;
@@ -25,4 +30,10 @@
 }
 .board-space:hover {
     background-color: #e2e8f0;
+}
+.reset button {
+    background-color: #fca5a5;
+}
+.reset button:hover {
+    background-color: #fecaca;
 }
