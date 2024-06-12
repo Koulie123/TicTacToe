@@ -1,14 +1,27 @@
 
 function gameBoard() {
     let gameGrid = [];
+    let gameIsFinished = false;
+    let Xscore = 0;
+    let Oscore = 0;
+    const playerWonDiv = document.querySelector("#player-has-won");
     const boardSpaces = document.querySelectorAll(".board-space");
+    const scoreDiv = document.querySelector("#player-score");
+
     const addButtonsToBoard = function() {
         boardSpaces.forEach((element) => {
             element.addEventListener("click", () => {
-                if(gameGrid[element.id].value == "") {
+                if(gameGrid[element.id].value == "" && !gameIsFinished) {
                     gameGrid[element.id].value = getTurnType();
-                    if (checkForWin(getTurnType())) updatePlayerHasWon(getTurnType() +" has won!");
-                    if (checkForDraw()) updatePlayerHasWon("It's a draw!")
+                    if (checkForWin(getTurnType())) {
+                        updatePlayerHasWon(getTurnType() +" has won!");
+                        inscreaseScore(getTurnType());
+                        gameIsFinished = true;
+                    }
+                    if (checkForDraw()) {
+                        updatePlayerHasWon("It's a draw!");
+                        gameIsFinished = true;
+                    }
                     increaseTurn();
                     updateBoardState();
                     updateCurrentPlayer();
@@ -19,7 +32,6 @@ function gameBoard() {
         resetButton.addEventListener("click", resetBoard);
     }
     const updatePlayerHasWon = function (content) {
-        let playerWonDiv = document.querySelector("#player-has-won");
         playerWonDiv.textContent = content;
         
     }
@@ -90,6 +102,11 @@ function gameBoard() {
 
         // }
     }
+    const inscreaseScore = function (player) {
+        if (player == "X") Xscore++;
+        if (player == "O") Oscore++;
+        scoreDiv.textContent = "Score: X = " + Xscore + "  O = " + Oscore;
+    }
     const resetBoard = function() {
         console.log("Resetting the board");
         console.log(getGameBoard());
@@ -99,7 +116,8 @@ function gameBoard() {
         updateCurrentPlayer();
         console.log("Resetting the board is done");
         console.log(getGameBoard());
-
+        playerWonDiv.textContent = "";
+        gameIsFinished = false;
 
     }
 

@@ -12,7 +12,13 @@ html {
     flex-direction: column;
     margin-top: 10%;
 }
-
+#player-has-won {
+    height: 2rem;
+    font-weight: 700;;
+}
+.above-board-info {
+    font-size: 1.2rem;
+}
 .game-board-container {
     width: 20rem;
     height: 20rem; 
@@ -20,10 +26,11 @@ html {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     border: 2px solid black;
+    background-color: white;
 }
 .board-space {
     border: 2px solid black;
-    font: 4rem;
+    font-size: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
